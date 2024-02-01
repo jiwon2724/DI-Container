@@ -10,15 +10,18 @@ import jiwondev.di_container.viewmodel.LoginViewModel
 
 class AppContainer(private val context: Context) {
     fun createLocalDataSource(): UserLocalDataSource = UserLocalDataSource(context)
+
     fun createLocalDataRepository(): UserDataRepository = UserDataRepository(createLocalDataSource())
+
     fun createLoginViewModelFactory(): AbstractSavedStateViewModelFactory {
         return object : AbstractSavedStateViewModelFactory() {
+            val localDataRepository = createLocalDataRepository()
             override fun <T : ViewModel> create(
                 key: String,
                 modelClass: Class<T>,
                 handle: SavedStateHandle
             ): T {
-                return LoginViewModel(createLocalDataRepository()) as T
+                return LoginViewModel(localDataRepository) as T
             }
         }
     }
