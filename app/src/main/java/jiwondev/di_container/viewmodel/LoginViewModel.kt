@@ -30,6 +30,12 @@ class LoginViewModel(private val repository: UserDataRepository) : ViewModel() {
             }
         }
     }
+
+    fun logout() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.logout()
+        }
+    }
 }
 
 data class LoginUiState(
