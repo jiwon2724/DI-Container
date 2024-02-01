@@ -54,6 +54,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        // 생명주기에 따라 의존성 관리
         appContainer.loginContainer = null
     }
 }
