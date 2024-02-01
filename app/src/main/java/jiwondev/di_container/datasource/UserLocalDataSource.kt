@@ -13,7 +13,7 @@ private const val USER_PREFERENCE = "user_preference"
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = USER_PREFERENCE)
 
 class UserLocalDataSource(private val context: Context) {
-    suspend fun getLoginState(): Boolean? = context.dataStore.data.map { it[LOGIN_STATE] }.first()
+    suspend fun getLoginState(): Boolean = context.dataStore.data.map { it[LOGIN_STATE] }.first() ?: false
 
     suspend fun setLoginState(isLogin: Boolean) {
         context.dataStore.edit { it[LOGIN_STATE] = isLogin }
